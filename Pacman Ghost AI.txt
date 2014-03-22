@@ -1,0 +1,41 @@
+A couple years ago some guys over at Atariage.com determined precisely what the ghosts AI is doing. This is not speculation. Two members, JamieVegas, and Dav dug through the code of Pac-Man and found out exactly what is going on. 
+
+Here is my compilation of info on the ghosts including translations of their japanese names: 
+
+--- 
+
+Pac-Man Ghost AI 
+
+--- 
+
+Red - Blinky: Oikake - "Akabei" (oikake-ru = to run down/to pursue/to chase down). Or of course the english "Shadow": 
+
+Input is Pac-Man's location. He doesn't consider which direction Pac-Man is going. He attempts to reduce the distance between himself and Pac-Man. He will turn in the direction that will immediately reduce whichever is GREATER of the horizontal distance or vertical distance between himself and Pac-Man. This usually has him tenaciously following Pac-Man, but will occasionally lead to a "stupid" choice. 
+
+--- 
+
+Pink - Pinky: Machibuse (machibuse = performing an ambush). Or in english "speedy": 
+
+Input is four tiles in front of Pac-Man. Therefore direction Pac-Man is facing as well as actual location of Pac-Man determine Pinky's "target." Pinky attempts to home in on this target using the same logic as the Red ghost uses to home in on Pac-Man. This does indeed effectively "set up an ambush" if Pinky manages to get in front of you. At close range, the direction you face can mean life or death. If you're facing away from Pinky, he will chase you (his "target" is now in front of both you and him). If you face him or turn off to a side, he may turn away from you if that provides a shorter route to the target than running through you. Note that if the space four tiles in front of you is on the other side of a wall, he will go over there in preference to the side you are on. 
+
+--- 
+
+Blue - Inky: Kimagure - "Aosuke" (kimagure = fickle/moody/uneven temper). Or in english "Bashful": 
+
+Inputs, are the square two tiles in front of Pac-Man, and the location of the Red ghost. To envision Inky's target, draw a line from the Red ghost to the spot 2 tiles in front of Pac-Man. Now extend that line twice as far in the same direction and draw an "x" where it winds up. Inky wants to reach that "x." The fact that Inky's AI has two inputs instead of one makes his behavior more complex. On a fast-moving playing field with Pac-Man and the red ghost constantly changing position, that "x" can be jumping all over the place and sometimes Inky's behavior seems completely random - but it's not. No wonder his alternate name on the Puck-Man rom is "Stylist"! His regular name, Kimagure ("Whimsy") is also appropriate. It makes sense that the closer the red ghost is to Pac-Man (technically, the closer he is to the spot two spaces in front of Pac-Man), the more predictable Inky's behavior appears. 
+
+--- 
+
+Orange - Clyde: Otoboke - "Guzuta" (Otoboke = Pretending Ignorance). The nick "Guzuta" means someone who lags behind. Or of course "pokey" in english: 
+
+Has two modes, "near" (within 8 tiles of Pac-Man) and "far" (farther away than 8 tiles). In "far" mode, he heads toward Pac-Man using Blinky's logic. This gets him in the same general area of the maze, but then in "near" mode, he has a bizarre change of heart and decides to head for his corner of the maze (lower left island). Unless you happen to be in the lower left region, his about-face will soon take him into "far" mode again, and he will circle back toward your area. If you are in the lower left, he will circle his favorite island indefinitely. He will usually only "chase" you if you happen to be in the path between him and the lower left of the screen. Orange's "far" mode rarely leaves him doubled up on top of Red due to the fact that their home quadrants are on opposite sides of the map and "scatter" mode repeatedly separates them. Plus, red is usually close enough to you that orange will go into "near" mode if he gets close to red. 
+
+--- 
+
+Blue (edible) ghosts behavior 
+
+The blue ghost behavior is random in that it uses a random seed generator that is called every time that a blue ghost needs to make a decision. The generator generates an address within 0x0000 and 0x1FFF to read the last few bits of. These bits are translated into the direction that the ghost must first try. If it is a wall, the ghost then just attempts through the remaining directions in sequence. The random seed is reset at the beginning of every level or life. So it is the same for any given set of ghost positions and Pac-Man pattern. 
+
+--- 
+
+Note: Each dot resides in it's own "tile" so 1 tile equals the distance from one dot to the next.
